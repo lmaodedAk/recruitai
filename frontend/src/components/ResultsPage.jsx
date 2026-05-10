@@ -2,7 +2,7 @@ import axios from "axios";
 import CandidateCard from "./CandidateCard";
 import { Download, RotateCcw } from "lucide-react";
 
-const API = "http://localhost:8000";
+const API = "https://recruitai-uu8w.onrender.com";
 
 export default function ResultsPage({ report, setReport, onReset }) {
   async function handleOverride(candidateName, dimensionKey, newScore, reason) {
