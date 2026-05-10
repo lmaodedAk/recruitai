@@ -1,0 +1,6 @@
+.env
+__pycache__/
+*.pyc
+.DS_Store
+.langchain_cache.db
+langfuse.db
