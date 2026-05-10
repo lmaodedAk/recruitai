@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import axios from "axios";
 import { Upload, FileText, Briefcase, ArrowRight, X } from "lucide-react";
 
-const API = "https://recruitai-uu8w.onrender.com";
+const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export default function InputPage({ onResults }) {
   const [jdText, setJdText] = useState("");

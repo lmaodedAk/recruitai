@@ -1,8 +1,9 @@
 import axios from "axios";
 import CandidateCard from "./CandidateCard";
 import { Download, RotateCcw } from "lucide-react";
+import { generatePDF } from "../utils/generatePDF";
 
-const API = "https://recruitai-uu8w.onrender.com";
+const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export default function ResultsPage({ report, setReport, onReset }) {
   async function handleOverride(candidateName, dimensionKey, newScore, reason) {
@@ -16,7 +17,7 @@ export default function ResultsPage({ report, setReport, onReset }) {
     setReport(res.data);
   }
 
-  function handleExport() {
+  function handleExportJSON() {
     const blob = new Blob([JSON.stringify(report, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -33,11 +34,17 @@ export default function ResultsPage({ report, setReport, onReset }) {
           <p style={styles.subtitle}>Generated at {report.generated_at?.slice(0, 19).replace("T", " ")} UTC</p>
         </div>
         <div style={styles.actions}>
-          <button style={styles.exportBtn} onClick={handleExport}>
-            <Download size={16} style={{ marginRight: 8 }} />Export JSON
+          <button style={styles.exportBtn} onClick={() => generatePDF(report)}>
+            <Download size={16} style={{ marginRight: 8 }} />
+            Export PDF
+          </button>
+          <button style={{ ...styles.exportBtn, background: "#111827", border: "1px solid #1f2937", color: "#a0aec0" }} onClick={handleExportJSON}>
+            <Download size={16} style={{ marginRight: 8 }} />
+            Export JSON
           </button>
           <button style={styles.resetBtn} onClick={onReset}>
-            <RotateCcw size={16} style={{ marginRight: 8 }} />Start Over
+            <RotateCcw size={16} style={{ marginRight: 8 }} />
+            Start Over
           </button>
         </div>
       </div>
@@ -90,7 +97,7 @@ const styles = {
   header: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 32 },
   title: { fontSize: "2rem", fontWeight: 800, background: "linear-gradient(90deg, #4f8ef7, #a78bfa)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" },
   subtitle: { color: "#718096", fontSize: "0.85rem", marginTop: 4 },
-  actions: { display: "flex", gap: 12 },
+  actions: { display: "flex", gap: 10 },
   exportBtn: { display: "flex", alignItems: "center", background: "#111827", border: "1px solid #4f8ef7", color: "#4f8ef7", padding: "10px 18px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: "0.9rem" },
   resetBtn: { display: "flex", alignItems: "center", background: "#111827", border: "1px solid #1f2937", color: "#a0aec0", padding: "10px 18px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: "0.9rem" },
   metricsRow: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 32 },
