@@ -69,12 +69,9 @@ The rubric differentiated correctly across all 5. The marketing manager getting 
 
 
 
-## Things I would do with more time
+## What I would add with more time
 
-- Add SQLite-based response caching (LangChain's `SQLiteCache`) so repeated identical prompts don't hit the API during development — useful when iterating on prompts without burning through rate limits
-- Add Langfuse tracing to monitor what the LLM receives and returns per run — makes it easier to catch prompt injection attempts and verify the rubric is being applied correctly
-- Add embedding-based semantic matching for skills (BGE or sentence-transformers) so "ML" and "machine learning" count as the same skill
-- Store results in a database so you can compare candidates across multiple sessions
-- Add a batch upload mode so HR can process 50 resumes overnight using Groq's batch API
-- Add a confidence score alongside each dimension score — if the LLM isn't sure, flag it for HR review
-- Rate limiting on the FastAPI endpoints before any kind of production deployment
+- SQLite caching using LangChain so identical prompts don't hit the API twice during development
+- Langfuse tracing to monitor what the LLM receives and returns on each call — useful for catching unexpected scores
+- Embedding-based semantic skill matching so "ML" and "machine learning" count as the same skill
+- Batch processing mode for 50+ resumes using Groq's batch API

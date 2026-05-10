@@ -1,6 +1,16 @@
+# Environment
 .env
+
+# Python
 __pycache__/
 *.pyc
+*.pyo
+
+# Node
+node_modules/
+
+# Build
+frontend/dist/
+
+# Mac
 .DS_Store
-.langchain_cache.db
-langfuse.db
